@@ -10,6 +10,21 @@
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="MediatR" Version="14.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Behaviors\" />
+    <Folder Include="Common\Exceptions\" />
+    <Folder Include="Features\V1\SystemManagements\Auth\" />
+    <Folder Include="Features\V1\SystemManagements\User\Commands\" />
+    <Folder Include="Features\V1\SystemManagements\User\Modals\" />
+    <Folder Include="Features\V1\SystemManagements\User\Mapper\" />
+    <Folder Include="Features\V1\SystemManagements\User\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\CRM.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

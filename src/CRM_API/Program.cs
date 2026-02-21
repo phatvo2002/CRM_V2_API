@@ -1,3 +1,4 @@
+using CRM.Application.Common.Abstractions.Data;
 using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ var dataSource = dsBuilder.Build();
 
 builder.Services.AddDbContext<CrmDbContext>(options =>
     options.UseNpgsql(dataSource));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 var app = builder.Build();

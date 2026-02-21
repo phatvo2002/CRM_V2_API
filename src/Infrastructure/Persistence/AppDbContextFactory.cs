@@ -11,7 +11,7 @@ namespace Infrastructure.Persistence
         public CrmDbContext CreateDbContext(string[] args)
         {
             var basePath = Directory.GetCurrentDirectory();
-            var apiPath = Path.Combine(basePath, "../CRM_API");
+            var apiPath = Path.Combine(basePath, "../CRM.API");
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(apiPath)
