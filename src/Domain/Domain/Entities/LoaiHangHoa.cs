@@ -1,0 +1,11 @@
+﻿namespace Domain.Entities
+{
+    public class LoaiHangHoa
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public virtual ICollection<HangHoa> HangHoas { get; set; } = new List<HangHoa>();
+        public virtual ICollection<LoaiHangHoa> LoaiHangHoas { get; set; } = new List<LoaiHangHoa>();
+        public virtual ICollection<CoHoi> CoHois { get; set; } = new List<CoHoi>();
+    }
+}

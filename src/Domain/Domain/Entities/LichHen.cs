@@ -1,0 +1,23 @@
+﻿using Domain.Common;
+
+namespace Domain.Entities
+{
+    public class LichHen : BaseEntity
+    {
+        public Guid Id { get; set; }
+        public string? TieuDe { get; set; }
+        public string? MoTa { get; set; }
+        public DateTime? NgayBatDau { get; set; }
+        public DateTime? NgayKetThuc { get; set; }
+        public string? DiaDiem { get; set; }
+        public Guid? TrangThaiThucHienId { get; set; }
+        public Guid? KhachHangTiemNangId { get; set; }
+        public string? KhachHangMucTieuId { get; set; }
+        public string? CoHoiId { get; set; }
+        public virtual TrangThaiThucHien? TrangThaiThucHien { get; set; }
+        public virtual KhachHangTiemNang? KhachHangTiemNang { get; set; }
+        public virtual KhachHangMucTieu? KhachHangMucTieu { get; set; }
+        public virtual CoHoi? CoHoi { get; set; }
+
+    }
+}

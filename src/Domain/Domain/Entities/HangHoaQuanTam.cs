@@ -1,0 +1,24 @@
+﻿namespace Domain.Entities
+{
+    public partial class HangHoaQuanTam
+    {
+        public Guid Id { get; set; }
+        public string? MaHangHoaId { get; set; }
+        public string? TenHangHoa { get; set; }
+        public Guid? KhachHangTiemNangId { get; set; }
+        public string? KhachHangId { get; set; }
+        public string? CoHoiId { get; set; }
+        public Guid? BaoGiaId { get; set; }
+        public Guid? HoaDonId { get; set; } // chỉnh sửa 
+        public decimal? DonGia { get; set; }
+        public int? SoLuong { get; set; }
+        public int? ThueSuat { get; set; }
+        public decimal? TienThue { get; set; }
+        public decimal? ChiecKhauDonHang { get; set; }
+        public decimal? ThanhTien { get; set; }
+        public decimal? TongTien { get; set; }
+        public int? MaDonViTinh { get; set; }
+        public virtual HangHoa? HangHoa { get; set; }
+        public virtual DonViTinh? DonViTinh { get; set; }
+    }
+}
