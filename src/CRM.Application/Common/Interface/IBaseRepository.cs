@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CRM.Infrastructure.Repository;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CRM.Application.Repository
+namespace CRM.Application.Common.Interface
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {

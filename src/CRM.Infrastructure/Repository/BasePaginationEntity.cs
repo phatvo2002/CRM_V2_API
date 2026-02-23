@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CRM.Application.Repository
+namespace CRM.Infrastructure.Repository
 {
     public class BasePaginationEntity<TEntity> where TEntity : class
     {

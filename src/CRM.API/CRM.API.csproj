@@ -24,6 +24,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\CRM.Application.csproj" />
+    <ProjectReference Include="..\CRM.Application\CRM.Application.csproj" />
+    <ProjectReference Include="..\CRM.Domain\CRM.Domain.csproj" />
+    <ProjectReference Include="..\CRM.Infrastructure\CRM.Infrastructure.csproj" />
     <ProjectReference Include="..\Infrastructure\CRM.Infrastructure.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>

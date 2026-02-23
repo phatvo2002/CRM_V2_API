@@ -1,8 +1,9 @@
-﻿using Infrastructure.Persistence;
+﻿
+using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace CRM.Application.Repository
+namespace CRM.Infrastructure.Repository
 {
     public class BaseRepository<TContext , TEntity> : IBaseRepository<TEntity>  where TContext : CrmDbContext where TEntity : class
     {

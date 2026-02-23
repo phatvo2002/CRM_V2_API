@@ -1,4 +1,4 @@
-﻿using CRM.Application.Repository.SystemManagements.User;
+﻿using CRM.Infrastructure.Repository.SystemManagements.User;
 using Infrastructure.Persistence;
 using System;
 using System.Collections.Generic;
