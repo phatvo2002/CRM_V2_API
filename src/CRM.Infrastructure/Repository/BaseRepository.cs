@@ -1,5 +1,5 @@
-﻿
-using Infrastructure.Persistence;
+﻿using CRM.Application.Common.Interface;
+using CRM.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

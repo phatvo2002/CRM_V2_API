@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
-namespace Infrastructure.Persistence
+namespace CRM.Infrastructure.Persistence
 {
     public class AppDbContextFactory : IDesignTimeDbContextFactory<CrmDbContext>
     {

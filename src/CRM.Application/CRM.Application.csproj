@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="MediatR" Version="14.0.0" />
@@ -17,14 +19,14 @@
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Features\V1\SystemManagements\Auth\" />
+    <Folder Include="Features\V1\SystemManagements\Role\Query\" />
     <Folder Include="Features\V1\SystemManagements\User\Commands\" />
-    <Folder Include="Features\V1\SystemManagements\User\Modals\" />
     <Folder Include="Features\V1\SystemManagements\User\Mapper\" />
     <Folder Include="Features\V1\SystemManagements\User\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\CRM.Infrastructure.csproj" />
+    <ProjectReference Include="..\CRM.Domain\CRM.Domain.csproj" />
   </ItemGroup>
 
 </Project>

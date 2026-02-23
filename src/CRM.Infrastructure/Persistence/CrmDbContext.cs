@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence
+namespace CRM.Infrastructure.Persistence
 {
-    public class CrmDbContext : DbContext
+    public class CrmDbContext : IdentityDbContext<Nguoidung, IdentityRole<Guid>, Guid>
     {
         public CrmDbContext()
         {
@@ -98,6 +100,34 @@ namespace Infrastructure.Persistence
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Nguoidung>(entity =>
+            {
+                entity.ToTable("NguoiDung");
+
+                entity.Property(e => e.HoVaDem).HasMaxLength(50);
+                entity.Property(e => e.Ten).HasMaxLength(50);
+                entity.Property(e => e.DiaChi).HasMaxLength(100);
+                entity.Property(e => e.NgayThuViec).HasColumnType("timestamp");
+                entity.Property(e => e.NgayBatDauLamViec).HasColumnType("timestamp");
+
+                entity.Property(e => e.IsDelete).HasColumnType("boolean");
+
+                entity.HasOne(d => d.ChucVu)
+                    .WithMany(p => p.Nguoidung)
+                    .HasForeignKey(d => d.MaChucVu)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(d => d.PhongBan)
+                    .WithMany(p => p.Nguoidung)
+                    .HasForeignKey(d => d.MaPhongBan);
+
+                entity.HasOne(d => d.ChiNhanh)
+                    .WithMany(p => p.Nguoidung)
+                    .HasForeignKey(d => d.ChiNhanhId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
             modelBuilder.Entity<ThongBao>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PK_ThongBao");
@@ -179,44 +209,44 @@ namespace Infrastructure.Persistence
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ChiNhanh_PhongBan");
             });
-            modelBuilder.Entity<Nguoidung>(entity =>
-            {
-                entity.HasKey(e => e.Id).HasName("PK_NguoiDung");
-                entity.ToTable("NguoiDung");
-                entity.Property(e => e.HoVaDem).HasMaxLength(50);
-                entity.Property(e => e.Ten).HasMaxLength(50);
-                entity.Property(e => e.DiaChi).HasMaxLength(100);
-                entity.Property(e => e.SoDienThoai).HasMaxLength(11);
-                entity.Property(e => e.Email).HasMaxLength(50);
-                entity.Property(e => e.NgayThuViec).HasColumnType("timestamp");
-                entity.Property(e => e.NgayBatDauLamViec).HasColumnType("timestamp");
-                entity.Property(e => e.TaiKhoan).HasMaxLength(50);
-                entity.Property(e => e.DoanhSoDuKien).HasMaxLength(50);
-                entity.Property(e => e.DoanhSoThucTe).HasMaxLength(50);
-                entity.Property(e => e.TaiKhoan).HasMaxLength(50);
-                entity.Property(e => e.MatKhau).HasMaxLength(50);
-                entity.Property(e => e.HinhAnh).HasColumnType("bytea");
-                entity.Property(e => e.DisplayName).HasMaxLength(100);
-                entity.Property(e => e.Password).HasMaxLength(100);
-                entity.Property(e => e.IsActive);
-                entity.Property(e => e.IsDelete).HasColumnType("boolean");
-                entity.Property(e => e.CheckIsTruongPhong);
-                entity.Property(e => e.CheckIsTongGiamDoc).HasColumnType("boolean");
-                entity.Property(e => e.CheckIsSuperAdmin).HasColumnType("boolean");
-                entity.Property(e => e.CheckIsGiamDoc);
+            //modelBuilder.Entity<Nguoidung>(entity =>
+            //{
+            //    entity.HasKey(e => e.Id).HasName("PK_NguoiDung");
+            //    entity.ToTable("NguoiDung");
+            //    entity.Property(e => e.HoVaDem).HasMaxLength(50);
+            //    entity.Property(e => e.Ten).HasMaxLength(50);
+            //    entity.Property(e => e.DiaChi).HasMaxLength(100);
+            //    entity.Property(e => e.SoDienThoai).HasMaxLength(11);
+            //    entity.Property(e => e.Email).HasMaxLength(50);
+            //    entity.Property(e => e.NgayThuViec).HasColumnType("timestamp");
+            //    entity.Property(e => e.NgayBatDauLamViec).HasColumnType("timestamp");
+            //    entity.Property(e => e.TaiKhoan).HasMaxLength(50);
+            //    entity.Property(e => e.DoanhSoDuKien).HasMaxLength(50);
+            //    entity.Property(e => e.DoanhSoThucTe).HasMaxLength(50);
+            //    entity.Property(e => e.TaiKhoan).HasMaxLength(50);
+            //    entity.Property(e => e.MatKhau).HasMaxLength(50);
+            //    entity.Property(e => e.HinhAnh).HasColumnType("bytea");
+            //    entity.Property(e => e.DisplayName).HasMaxLength(100);
+            //    entity.Property(e => e.Password).HasMaxLength(100);
+            //    entity.Property(e => e.IsActive);
+            //    entity.Property(e => e.IsDelete).HasColumnType("boolean");
+            //    entity.Property(e => e.CheckIsTruongPhong);
+            //    entity.Property(e => e.CheckIsTongGiamDoc).HasColumnType("boolean");
+            //    entity.Property(e => e.CheckIsSuperAdmin).HasColumnType("boolean");
+            //    entity.Property(e => e.CheckIsGiamDoc);
 
-                entity.HasOne(d => d.ChucVu).WithMany(p => p.Nguoidung)
-                      .HasForeignKey(d => d.MaChucVu)
-                      .OnDelete(DeleteBehavior.ClientSetNull)
-                      .HasConstraintName("FK_ChucVu_NguoiDung");
-                entity.HasOne(d => d.PhongBan).WithMany(p => p.Nguoidung)
-                      .HasForeignKey(d => d.MaPhongBan)
-                      .HasConstraintName("FK_PhongBan_NguoiDung");
-                entity.HasOne(d => d.ChiNhanh).WithMany(p => p.Nguoidung)
-                     .HasForeignKey(d => d.ChiNhanhId)
-                     .OnDelete(DeleteBehavior.ClientSetNull)
-                     .HasConstraintName("FK_ChiNhanh_NguoiDung");
-            });
+            //    entity.HasOne(d => d.ChucVu).WithMany(p => p.Nguoidung)
+            //          .HasForeignKey(d => d.MaChucVu)
+            //          .OnDelete(DeleteBehavior.ClientSetNull)
+            //          .HasConstraintName("FK_ChucVu_NguoiDung");
+            //    entity.HasOne(d => d.PhongBan).WithMany(p => p.Nguoidung)
+            //          .HasForeignKey(d => d.MaPhongBan)
+            //          .HasConstraintName("FK_PhongBan_NguoiDung");
+            //    entity.HasOne(d => d.ChiNhanh).WithMany(p => p.Nguoidung)
+            //         .HasForeignKey(d => d.ChiNhanhId)
+            //         .OnDelete(DeleteBehavior.ClientSetNull)
+            //         .HasConstraintName("FK_ChiNhanh_NguoiDung");
+            //});
 
             #region Khách hàng tiềm năng
             modelBuilder.Entity<PhongBanKhachHang>(entity =>

@@ -1,28 +1,20 @@
-﻿namespace Domain.Entities
+﻿using Microsoft.AspNetCore.Identity;
+namespace Domain.Entities
 {
-    public partial class Nguoidung
-    {
-        public Guid Id { get; set; }
+    public partial class Nguoidung : IdentityUser<Guid>  {
         public string? HoVaDem { get; set; }
         public string? Ten { get; set; }
         public string? DiaChi { get; set; }
-        public string? SoDienThoai { get; set; }
-        public string? Email { get; set; }
         public string? DisplayName { get; set; }
-        public string? Password { get; set; }
+
         public decimal? DoanhSoDuKien { get; set; }
         public decimal? DoanhSoThucTe { get; set; }
+
         public DateTime? NgayThuViec { get; set; }
         public DateTime? NgayBatDauLamViec { get; set; }
-        public string? TaiKhoan { get; set; }
-        public string? MatKhau { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDelete { get; set; } // hàng mới
-        public bool CheckIsTruongPhong { get; set; }
+        public bool IsDelete { get; set; }
         public byte[]? HinhAnh { get; set; }
-        public bool CheckIsGiamDoc { get; set; }
-        public bool? CheckIsTongGiamDoc { get; set; }
-        public bool? CheckIsSuperAdmin { get; set; }
         public Guid? MaChucVu { get; set; }
         public virtual ChucVu? ChucVu { get; set; }
         public Guid? MaPhongBan { get; set; }
