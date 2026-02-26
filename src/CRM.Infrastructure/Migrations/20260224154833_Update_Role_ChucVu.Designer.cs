@@ -4,17 +4,20 @@ using CRM.Infrastructure.Persistence;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace CRM.Infrastructure.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CrmDbContext))]
-    partial class CrmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260224154833_Update_Role_ChucVu")]
+    partial class Update_Role_ChucVu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,52 +26,6 @@ namespace CRM.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "tinh_trang", new[] { "cho_duyet", "hoat_dong", "khoa", "da_xoa" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("CRM.Domain.Entities.Permissions", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Action")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
-
-                    b.Property<string>("Module")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
-
-                    b.HasKey("Id")
-                        .HasName("PK_Permission");
-
-                    b.ToTable("Permissions", (string)null);
-                });
-
-            modelBuilder.Entity("CRM.Domain.Entities.RolePermission", b =>
-                {
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("PermissionId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("RoleId", "PermissionId")
-                        .HasName("PK_RolePermission");
-
-                    b.HasIndex("PermissionId");
-
-                    b.ToTable("RolePermissions");
-                });
 
             modelBuilder.Entity("Domain.Entities.BaoGia", b =>
                 {
@@ -1660,6 +1617,18 @@ namespace CRM.Infrastructure.Migrations
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uuid");
 
+                    b.Property<bool?>("Sua")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("Them")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("Xem")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("Xoa")
+                        .HasColumnType("boolean");
+
                     b.HasKey("MenuId", "GroupId");
 
                     b.HasIndex("GroupId");
@@ -2430,25 +2399,6 @@ namespace CRM.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("CRM.Domain.Entities.RolePermission", b =>
-                {
-                    b.HasOne("CRM.Domain.Entities.Permissions", "Permission")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("PermissionId")
-                        .IsRequired()
-                        .HasConstraintName("FK_RolePermission_Permission");
-
-                    b.HasOne("Domain.Entities.ChucVu", "Role")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("RoleId")
-                        .IsRequired()
-                        .HasConstraintName("FK_RolePermission_ChucVu");
-
-                    b.Navigation("Permission");
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Domain.Entities.BaoGia", b =>
@@ -3243,11 +3193,6 @@ namespace CRM.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CRM.Domain.Entities.Permissions", b =>
-                {
-                    b.Navigation("RolePermissions");
-                });
-
             modelBuilder.Entity("Domain.Entities.BaoGia", b =>
                 {
                     b.Navigation("chiTietBaoGias");
@@ -3265,8 +3210,6 @@ namespace CRM.Infrastructure.Migrations
                     b.Navigation("MenuRole");
 
                     b.Navigation("Nguoidung");
-
-                    b.Navigation("RolePermissions");
                 });
 
             modelBuilder.Entity("Domain.Entities.CoHoi", b =>

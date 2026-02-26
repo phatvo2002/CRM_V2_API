@@ -1,5 +1,6 @@
 ﻿using CRM.Application.Common.Interface.SystemManagement.Role;
 using CRM.Infrastructure.Persistence;
+using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace CRM.Infrastructure.Repository.SystemManagement.Role
 {
-    public class RoleRepostitory : BaseRepository<CrmDbContext, IdentityRole<Guid>>, IRoleRepository
+    public class RoleRepostitory : BaseRepository<CrmDbContext, ChucVu>, IRoleRepository
     {
         public RoleRepostitory(CrmDbContext context) : base(context)
         {
+
         }
     }
 }

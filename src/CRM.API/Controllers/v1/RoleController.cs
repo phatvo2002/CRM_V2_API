@@ -15,9 +15,18 @@ namespace CRM.API.Controllers.v1
             _mediator = mediator;
         }
 
-
-        [HttpPost("Role")]
+        [HttpPost]
         public async Task<ActionResult> CreateRole([FromBody] CreateRoleCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+        [HttpPut]
+        public async Task<ActionResult> UpdateRole([FromBody] UpdateRoleCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteRole([FromBody] DeleteRoleCommand command)
         {
             return Ok(await _mediator.Send(command));
         }

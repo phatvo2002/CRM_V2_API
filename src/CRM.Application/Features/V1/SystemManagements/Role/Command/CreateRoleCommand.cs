@@ -2,6 +2,7 @@
 using CRM.Application.Common.Abstractions.Data;
 using CRM.Application.Features.V1.SystemManagements.Role.Modal;
 using CRM.Domain.Common;
+using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -22,7 +23,7 @@ namespace CRM.Application.Features.V1.SystemManagements.Role.Command
             }
             public async Task<Response<bool>> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
             {
-                var roleEntity = _mapper.Map<IdentityRole<Guid>>(request.RoleRequest);
+                var roleEntity = _mapper.Map<ChucVu>(request.RoleRequest);
                 _unitOfWork.RoleRepository.Insert(roleEntity);
 
                 var result = await _unitOfWork.SaveAsync(cancellationToken) ;
