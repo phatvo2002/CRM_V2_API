@@ -104,7 +104,6 @@ namespace CRM.Infrastructure.Persistence
                 entity.Property(e => e.DiaChi).HasMaxLength(100);
                 entity.Property(e => e.NgayThuViec).HasColumnType("timestamp");
                 entity.Property(e => e.NgayBatDauLamViec).HasColumnType("timestamp");
-
                 entity.Property(e => e.IsDelete).HasColumnType("boolean");
 
                 entity.HasOne(d => d.ChucVu)

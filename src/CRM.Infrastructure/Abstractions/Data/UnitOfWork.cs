@@ -1,9 +1,11 @@
 ﻿
 
 using CRM.Application.Common.Abstractions.Data;
+using CRM.Application.Common.Interface.SystemManagement.Branch;
 using CRM.Application.Common.Interface.SystemManagement.Role;
 using CRM.Application.Common.Interface.SystemManagement.User;
 using CRM.Infrastructure.Persistence;
+using CRM.Infrastructure.Repository.SystemManagement.Branch;
 using CRM.Infrastructure.Repository.SystemManagement.Role;
 using CRM.Infrastructure.Repository.SystemManagement.User;
 
@@ -42,6 +44,19 @@ namespace CRM.Infrastructure.Abstractions.Data
                 }
                 return _roleRepository;
             }   
+        }
+
+        private IBranchRepository _branchRepository;
+        public IBranchRepository BranchRepository
+        {
+            get
+            {
+                if (_branchRepository == null)
+                {
+                    _branchRepository = new BranchRepository(_context);
+                }
+                return _branchRepository;
+            }
         }
 
         public Task<int> SaveAsync(CancellationToken cancellationToken = default)

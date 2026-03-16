@@ -6,8 +6,6 @@ namespace Domain.Entities
         public string? Ten { get; set; }
         public string? DiaChi { get; set; }
         public string? DisplayName { get; set; }
-        public decimal? DoanhSoDuKien { get; set; }
-        public decimal? DoanhSoThucTe { get; set; }
         public DateTime? NgayThuViec { get; set; }
         public DateTime? NgayBatDauLamViec { get; set; }
         public bool IsActive { get; set; }

@@ -29,41 +29,39 @@ namespace CRM.Application.Features.V1.SystemManagements.Role.Command
             }
             public async Task<Response<bool>> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
             {
-                var role = _unitOfWork.RoleRepository.GetAsync(filter: x=> x.Id ==  request.model.Id,selector : s => new ChucVu
-                { 
-                        Id = s.Id,
-                        Name = s.Name,
-                        MoTa = s.MoTa,
-                        NormalizedName = s.NormalizedName,
-                        ConcurrencyStamp = s.ConcurrencyStamp
-                }).Result;
-                try
+                if (request?.model == null || request.model.Id == Guid.Empty)
+                    return new Response<bool>("Dữ liệu không hợp lệ");
+
+                var role = await _unitOfWork.RoleRepository.GetAsync(filter: x => x.Id == request.model.Id, cancellationToken: cancellationToken);
+
+                if (role == null)
                 {
-                    if(role == null)
-                    {
-                        return new Response<bool>("Không tìm thấy chức vụ");
-                    }
-                    else
-                    {
-                         _unitOfWork.RoleRepository.Update(entityToUpdate :  role ,updateAction  : e=>
-                        {
-                            e.Name = request.model.Name;
-                            e.MoTa = request.model.MoTa;
-                            e.NormalizedName = request.model.NormalizedName;
-                            e.ConcurrencyStamp = request.model.ConcurrencyStamp;  
-                        });
-                        var result = await _unitOfWork.SaveAsync(cancellationToken);   
-                        if(result > 0)
-                        {
-                            return new Response<bool>(true,"Cập nhật chức vụ thành công");
-                        }
-                        else
-                        {
-                            return new Response<bool>("Cập nhật chức vụ thất bại");
-                        }   
-                    }    
+                    return new Response<bool>("Không tìm thấy chức vụ");
                 }
-                catch(Exception ex)
+
+                try
+                {   
+                    if (request.model.Name != null)
+                        role.Name = request.model.Name;
+
+                    if (request.model.MoTa != null)
+                        role.MoTa = request.model.MoTa;
+
+                    if (request.model.NormalizedName != null)
+                        role.NormalizedName = request.model.NormalizedName;
+
+                    if (request.model.ConcurrencyStamp != null)
+                        role.ConcurrencyStamp = request.model.ConcurrencyStamp;
+
+                    _unitOfWork.RoleRepository.Update(entityToUpdate: role, updateAction: null);
+
+                    var result = await _unitOfWork.SaveAsync(cancellationToken);
+                    if (result > 0)
+                        return new Response<bool>(true, "Cập nhật chức vụ thành công");
+
+                    return new Response<bool>("Cập nhật chức vụ thất bại");
+                }
+                catch (Exception ex)
                 {
                     return new Response<bool>($"Đã có lỗi xảy ra : {ex.Message}");
                 }

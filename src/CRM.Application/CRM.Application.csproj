@@ -19,6 +19,7 @@
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Features\V1\SystemManagements\Auth\" />
+    <Folder Include="Features\V1\SystemManagements\Branch\Query\" />
     <Folder Include="Features\V1\SystemManagements\Role\Query\" />
     <Folder Include="Features\V1\SystemManagements\User\Mapper\" />
     <Folder Include="Features\V1\SystemManagements\User\Queries\" />
