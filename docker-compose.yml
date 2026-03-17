@@ -1,0 +1,30 @@
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/CRM.API/Dockerfile
+    ports:
+      - "5000:8080"
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080 
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=CRM;Username=App_User;Password=123456
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: CRM
+      POSTGRES_USER: App_User
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
