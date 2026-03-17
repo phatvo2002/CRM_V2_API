@@ -6,6 +6,7 @@ using CRM.Application.Features.V1.SystemManagements.Role.Modal;
 using CRM.Domain.Common;
 using Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,13 @@ namespace CRM.Application.Features.V1.SystemManagements.Branch.Command
         {
             private readonly IUnitOfWork _unitOfWork;
             private readonly IMapper _mapper;
+            private readonly ILogger<CreateBranchCommandHandle>  _logger;
 
-            public CreateBranchCommandHandle (IUnitOfWork unitOfWork, IMapper mapper)
+            public CreateBranchCommandHandle (IUnitOfWork unitOfWork, IMapper mapper , ILogger<CreateBranchCommandHandle> logger)
             {
                 _unitOfWork = unitOfWork;
                 _mapper = mapper;
+                _logger = logger;   
             }
             public async Task<Response<bool>> Handle(CreateBranchCommand request , CancellationToken cancellationToken)
             {
@@ -36,10 +39,12 @@ namespace CRM.Application.Features.V1.SystemManagements.Branch.Command
                 var result = await _unitOfWork.SaveAsync(cancellationToken);
                 if (result > 0)
                 {
+                    _logger.LogInformation("Tạo chi nhánh thành công với id: {BranchId}", branchEntity.Id);
                     return new Response<bool>(true, "Tạo thành công");
                 }
                 else
                 {
+                    _logger.LogError("Tạo chi nhánh thất bại với id: {BranchId}", branchEntity.Id);
                     return new Response<bool>("Đã có lỗi xảy ra");
                 }
             }

@@ -12,6 +12,7 @@ namespace CRM.Application.Features.V1.SystemManagements.Branch.Mapper
             CreateMap<BranchRequest, ChiNhanh>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid())).ReverseMap();
                    CreateMap<RoleResponse, ChiNhanh>().ReverseMap();
+            CreateMap<BranchResponse, ChiNhanh>().ReverseMap();
         }
     }
 }
