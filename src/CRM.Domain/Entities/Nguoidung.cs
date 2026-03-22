@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CRM.Domain.Common;
+using Microsoft.AspNetCore.Identity;
 namespace Domain.Entities
 {
-    public partial class Nguoidung : IdentityUser<Guid>  {
+    public partial class Nguoidung : IdentityUser<Guid> , ISoftDelete {
         public string? HoVaDem { get; set; }
         public string? Ten { get; set; }
         public string? DiaChi { get; set; }
@@ -9,7 +10,7 @@ namespace Domain.Entities
         public DateTime? NgayThuViec { get; set; }
         public DateTime? NgayBatDauLamViec { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDelete { get; set; }
+        public bool IsDeleted { get; set; }
         public byte[]? HinhAnh { get; set; }
         public Guid? MaChucVu { get; set; }
         public virtual ChucVu? ChucVu { get; set; }
@@ -33,7 +34,7 @@ namespace Domain.Entities
         // kpi
         public virtual ICollection<MucTieuDoanhSo> MucTieuDoanhSos { get; set; } = new List<MucTieuDoanhSo>();
         public virtual ICollection<KPINhanVien> KPINhanViens { get; set; } = new List<KPINhanVien>();
-        public virtual ICollection<RefeshToken> RefeshTokens { get; set; } = new List<RefeshToken>();  
-
+        public virtual ICollection<RefeshToken> RefeshTokens { get; set; } = new List<RefeshToken>();
+      
     }
 }

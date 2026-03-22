@@ -1,4 +1,5 @@
 ﻿using CRM.Application.Common.Interface;
+using CRM.Domain.Common;
 using CRM.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -158,12 +159,22 @@ namespace CRM.Infrastructure.Repository
             {
                 _context.Set<TEntity>().Attach(entityToDelete);
             }
-            _context.Set<TEntity>().Remove(entityToDelete);
+            if (entityToDelete is ISoftDelete softDeleteEntity)
+            {
+                softDeleteEntity.IsDeleted = true;
+                _context.Entry(entityToDelete).State = EntityState.Modified;
+            }
+            else
+            {
+                _context.Set<TEntity>().Remove(entityToDelete);
+            }
         }
         public void DeleteEntities(IEnumerable<TEntity> list)
         {
             _context.Set<TEntity>().RemoveRange(list);
         }
+
+     
         #endregion
 
 

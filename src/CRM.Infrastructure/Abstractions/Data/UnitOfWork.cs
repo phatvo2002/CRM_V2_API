@@ -2,10 +2,12 @@
 
 using CRM.Application.Common.Abstractions.Data;
 using CRM.Application.Common.Interface.SystemManagement.Branch;
+using CRM.Application.Common.Interface.SystemManagement.Department;
 using CRM.Application.Common.Interface.SystemManagement.Role;
 using CRM.Application.Common.Interface.SystemManagement.User;
 using CRM.Infrastructure.Persistence;
 using CRM.Infrastructure.Repository.SystemManagement.Branch;
+using CRM.Infrastructure.Repository.SystemManagement.Department;
 using CRM.Infrastructure.Repository.SystemManagement.Role;
 using CRM.Infrastructure.Repository.SystemManagement.User;
 
@@ -56,6 +58,19 @@ namespace CRM.Infrastructure.Abstractions.Data
                     _branchRepository = new BranchRepository(_context);
                 }
                 return _branchRepository;
+            }
+        }
+
+        private IDepartmentRepository _departmentRepository;
+        public IDepartmentRepository DepartmentRepository
+        {
+            get
+            {
+                if (_departmentRepository == null)
+                {
+                    _departmentRepository = new DepartmentRepository(_context);
+                }
+                return _departmentRepository;
             }
         }
 

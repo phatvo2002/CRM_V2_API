@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CRM.Application.Features.V1.SystemManagements.User.Modals
 {
-    internal class UserResponse
+    public class UserResponse
     {
+        public string? UserName { get; set; }
+        public string? Email { get; set; }
     }
 }
