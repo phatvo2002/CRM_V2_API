@@ -36,7 +36,7 @@ namespace CRM.Application.Features.V1.SystemManagements.Department.Command
                 {
                     if (request.DepartmentRequest != null)
                     {
-                        data.SoThuTu = request.DepartmentRequest.SoThuTu;
+                        data.SoThuTu = request.DepartmentRequest.SoThuTu; 
                         data.MaQuanLy  = request.DepartmentRequest.MaQuanLy;
                         data.TenPhongBan = request.DepartmentRequest.TenPhongBan;
                         data.MoTa = request.DepartmentRequest.MoTa;
